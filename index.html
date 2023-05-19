@@ -11,10 +11,12 @@
       <canvas width="1600" height="1000" id="etch-a-sketch"></canvas>
       <div class="buttons">
         <button class="shake">Shake!</button>
-        <button class="move" data-move="up">Up</button>
-        <button class="move" data-move="down">Down</button>
-        <button class="move" data-move="left">Left</button>
-        <button class="move" data-move="right">Right</button>
+        <div class="move-buttons">
+          <button class="move up" data-move="up">Up</button>
+          <button class="move left" data-move="left">Left</button>
+          <button class="move down" data-move="down">Down</button>
+          <button class="move right" data-move="right">Right</button>
+        </div>
       </div>
     </div>
 
@@ -66,6 +68,22 @@
         }
       }
 
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .move-buttons {
+        display: grid;
+        grid-gap: 5px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas:
+          "blank-left up blank-right"
+          "left down right";
+      }
+
       button {
         color: white;
         background: #d60087;
@@ -74,6 +92,22 @@
         border-radius: 10px;
         font-weight: 600;
         font-size: 2rem;
+      }
+
+      .up {
+        grid-area: up;
+      }
+
+      .left {
+        grid-area: left;
+      }
+
+      .down {
+        grid-area: down;
+      }
+
+      .right {
+        grid-area: right;
       }
     </style>
   </body>
