@@ -2,6 +2,7 @@
 const canvasEl = document.querySelector("#etch-a-sketch");
 const canvasCtx = canvasEl.getContext("2d");
 const shakeBtn = document.querySelector(".shake");
+const moveBtns = document.querySelectorAll(".move");
 
 // Variables
 const { width, height } = canvasEl;
@@ -91,10 +92,44 @@ function clearCanvas() {
   );
 }
 
+function handleMoveButton(e) {
+  // Increment the hue to update canvas line stroke style
+  hue += 10;
+  canvasCtx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+  // Start the path
+  canvasCtx.beginPath();
+  // Move to previous position
+  canvasCtx.moveTo(x, y);
+  // Update the x and y values depending on what the user did
+  switch (e.currentTarget.dataset.move) {
+    case "up":
+      y -= MOVE_AMOUNT;
+      break;
+    case "down":
+      y += MOVE_AMOUNT;
+      break;
+    case "left":
+      x -= MOVE_AMOUNT;
+      break;
+    case "right":
+      x += MOVE_AMOUNT;
+      break;
+    default:
+      break;
+  }
+  // Move to the new coordinates
+  canvasCtx.lineTo(x, y);
+  canvasCtx.stroke();
+}
+
 // Listen for arrow keys
 window.addEventListener("keydown", handleKey);
-// Listen for button clicks
+// Listen for clear button clicks
 shakeBtn.addEventListener("click", clearCanvas);
+// Listen for move buttons clicks
+moveBtns.forEach((button) =>
+  button.addEventListener("click", handleMoveButton)
+);
 
 // Put a marker on the canvas to start drawing
 addMarker();
