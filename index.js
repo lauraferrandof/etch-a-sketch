@@ -6,9 +6,12 @@ const shakeBtn = document.querySelector(".shake");
 // Setup our canvas for drawing
 // Style the canvas line
 const MOVE_AMOUNT = 10;
+let hue = 0;
 canvasCtx.lineJoin = "round";
 canvasCtx.lineCap = "round";
 canvasCtx.lineWidth = MOVE_AMOUNT;
+// Canvas line stroke style
+canvasCtx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
 
 const { width, height } = canvasEl;
 let x;
@@ -29,6 +32,9 @@ function addMarker() {
 
 // Draw function
 function draw({ key }) {
+  // Increment the hue to update canvas line stroke style
+  hue += 10;
+  canvasCtx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
   // Start the path
   canvasCtx.beginPath();
   // Move to previous position
@@ -67,8 +73,10 @@ function handleKey(e) {
 function clearCanvas() {
   // Add shake animation
   canvasEl.classList.add("shake");
-  // Clear canvas content
+  // Clear canvas content and reset hue
   canvasCtx.clearRect(0, 0, width, height);
+  hue = 0;
+  canvasCtx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
   // Add new random starting point
   addMarker();
   // Remove shake class after animation ends
