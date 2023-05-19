@@ -3,19 +3,20 @@ const canvasEl = document.querySelector("#etch-a-sketch");
 const canvasCtx = canvasEl.getContext("2d");
 const shakeBtn = document.querySelector(".shake");
 
+// Variables
+const { width, height } = canvasEl;
+const MOVE_AMOUNT = 10;
+let x;
+let y;
+let hue = 0;
+
 // Setup our canvas for drawing
 // Style the canvas line
-const MOVE_AMOUNT = 10;
-let hue = 0;
 canvasCtx.lineJoin = "round";
 canvasCtx.lineCap = "round";
 canvasCtx.lineWidth = MOVE_AMOUNT;
-// Canvas line stroke style
+// Style the canvas line stroke
 canvasCtx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
-
-const { width, height } = canvasEl;
-let x;
-let y;
 
 // Add marker to random position
 function addMarker() {
